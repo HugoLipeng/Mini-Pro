@@ -1,14 +1,22 @@
-var util = require('../../../../util/util.js')
-var formatLocation = util.formatLocation
+const util = require('../../../../util/util.js')
+
+const formatLocation = util.formatLocation
 
 Page({
+  onShareAppMessage() {
+    return {
+      title: '获取位置',
+      path: 'page/API/pages/get-location/get-location'
+    }
+  },
+
   data: {
     hasLocation: false,
   },
-  getLocation: function () {
-    var that = this
+  getLocation() {
+    const that = this
     wx.getLocation({
-      success: function (res) {
+      success(res) {
         console.log(res)
         that.setData({
           hasLocation: true,
@@ -17,7 +25,7 @@ Page({
       }
     })
   },
-  clear: function () {
+  clear() {
     this.setData({
       hasLocation: false
     })

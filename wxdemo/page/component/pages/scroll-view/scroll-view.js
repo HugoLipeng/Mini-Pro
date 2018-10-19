@@ -1,24 +1,37 @@
-var order = ['demo1', 'demo2', 'demo3']
+const order = ['demo1', 'demo2', 'demo3']
+
 Page({
+  onShareAppMessage() {
+    return {
+      title: 'scroll-view',
+      path: 'page/component/pages/scroll-view/scroll-view'
+    }
+  },
+
   data: {
     toView: 'green'
   },
-  upper: function(e) {
+
+  upper(e) {
     console.log(e)
   },
-  lower: function(e) {
+
+  lower(e) {
     console.log(e)
   },
-  scroll: function(e) {
+
+  scroll(e) {
     console.log(e)
   },
-  scrollToTop: function(e) {
+
+  scrollToTop() {
     this.setAction({
       scrollTop: 0
     })
   },
-  tap: function(e) {
-    for (var i = 0; i < order.length; ++i) {
+
+  tap() {
+    for (let i = 0; i < order.length; ++i) {
       if (order[i] === this.data.toView) {
         this.setData({
           toView: order[i + 1],
@@ -28,7 +41,8 @@ Page({
       }
     }
   },
-  tapMove: function(e) {
+
+  tapMove() {
     this.setData({
       scrollTop: this.data.scrollTop + 10
     })

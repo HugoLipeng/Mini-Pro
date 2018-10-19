@@ -1,7 +1,14 @@
-var sourceType = [ ['camera'], ['album'], ['camera', 'album'] ]
-var sizeType = [ ['compressed'], ['original'], ['compressed', 'original'] ]
+const sourceType = [['camera'], ['album'], ['camera', 'album']]
+const sizeType = [['compressed'], ['original'], ['compressed', 'original']]
 
 Page({
+  onShareAppMessage() {
+    return {
+      title: '图片',
+      path: 'page/API/pages/image/image'
+    }
+  },
+
   data: {
     imageList: [],
     sourceTypeIndex: 2,
@@ -13,28 +20,28 @@ Page({
     countIndex: 8,
     count: [1, 2, 3, 4, 5, 6, 7, 8, 9]
   },
-  sourceTypeChange: function (e) {
+  sourceTypeChange(e) {
     this.setData({
       sourceTypeIndex: e.detail.value
     })
   },
-  sizeTypeChange: function (e) {
+  sizeTypeChange(e) {
     this.setData({
       sizeTypeIndex: e.detail.value
     })
   },
-  countChange: function (e) {
+  countChange(e) {
     this.setData({
       countIndex: e.detail.value
     })
   },
-  chooseImage: function () {
-    var that = this
+  chooseImage() {
+    const that = this
     wx.chooseImage({
       sourceType: sourceType[this.data.sourceTypeIndex],
       sizeType: sizeType[this.data.sizeTypeIndex],
       count: this.data.count[this.data.countIndex],
-      success: function (res) {
+      success(res) {
         console.log(res)
         that.setData({
           imageList: res.tempFilePaths
@@ -42,11 +49,11 @@ Page({
       }
     })
   },
-  previewImage: function (e) {
-    var current = e.target.dataset.src
+  previewImage(e) {
+    const current = e.target.dataset.src
 
     wx.previewImage({
-      current: current,
+      current,
       urls: this.data.imageList
     })
   }

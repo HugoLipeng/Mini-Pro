@@ -1,19 +1,26 @@
 const downloadExampleUrl = require('../../../../config').downloadExampleUrl
 
 Page({
-  downloadImage: function() {
-    var self = this
+  onShareAppMessage() {
+    return {
+      title: '下载文件',
+      path: 'page/API/pages/download-file/download-file'
+    }
+  },
+
+  downloadImage() {
+    const self = this
 
     wx.downloadFile({
       url: downloadExampleUrl,
-      success: function(res) {
+      success(res) {
         console.log('downloadFile success, res is', res)
 
         self.setData({
           imageSrc: res.tempFilePath
         })
       },
-      fail: function({errMsg}) {
+      fail({errMsg}) {
         console.log('downloadFile fail, err is:', errMsg)
       }
     })

@@ -16,6 +16,10 @@
         <text class="page-body-title">Y: {{y}}</text>
         <text class="page-body-title">Z: {{z}}</text>
       </view>
+      <view class="page-body-controls">
+        <button bindtap="startAccelerometer" disabled="{{enabled}}">开始监听</button>
+        <button bindtap="stopAccelerometer" disabled="{{!enabled}}">停止监听</button>
+      </view>
     </view>
   </view>
 

@@ -1,5 +1,5 @@
-var types = ['default', 'primary', 'warn']
-var pageObject = {
+const types = ['default', 'primary', 'warn']
+const pageObject = {
   data: {
     defaultSize: 'default',
     primarySize: 'default',
@@ -8,33 +8,43 @@ var pageObject = {
     plain: false,
     loading: false
   },
-  setDisabled: function(e) {
+
+  onShareAppMessage() {
+    return {
+      title: 'button',
+      path: 'page/component/pages/button/button'
+    }
+  },
+
+  setDisabled() {
     this.setData({
       disabled: !this.data.disabled
     })
   },
-  setPlain: function(e) {
+
+  setPlain() {
     this.setData({
       plain: !this.data.plain
     })
   },
-  setLoading: function(e) {
+
+  setLoading() {
     this.setData({
       loading: !this.data.loading
     })
   }
 }
 
-for (var i = 0; i < types.length; ++i) {
-  (function(type) {
-    pageObject[type] = function(e) {
-      var key = type + 'Size'
-      var changedData = {}
+for (let i = 0; i < types.length; ++i) {
+  (function (type) {
+    pageObject[type] = function () {
+      const key = type + 'Size'
+      const changedData = {}
       changedData[key] =
         this.data[key] === 'default' ? 'mini' : 'default'
       this.setData(changedData)
     }
-  })(types[i])
+  }(types[i]))
 }
 
 Page(pageObject)

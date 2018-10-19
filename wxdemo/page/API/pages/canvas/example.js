@@ -1,4 +1,4 @@
-var example = {}
+const example = {}
 
 example.rotate = function (context) {
   context.beginPath()
@@ -232,7 +232,7 @@ example.setShadow = function (context) {
 example.setFontSize = function (context) {
   [10, 20, 30, 40].forEach(function (item, index) {
     context.setFontSize(item)
-    context.fillText('Hello, world', 20, 20 + 40*index)
+    context.fillText('Hello, world', 20, 20 + 40 * index)
   })
 }
 
@@ -241,8 +241,8 @@ example.setLineCap = function (context) {
   ['butt', 'round', 'square'].forEach(function (item, index) {
     context.beginPath()
     context.setLineCap(item)
-    context.moveTo(20, 20 + 20*index)
-    context.lineTo(100, 20 + 20*index)
+    context.moveTo(20, 20 + 20 * index)
+    context.lineTo(100, 20 + 20 * index)
     context.stroke()
   })
 }

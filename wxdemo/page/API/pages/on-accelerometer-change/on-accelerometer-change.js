@@ -1,9 +1,22 @@
 Page({
-  onReady: function () {
-    this.drawBigBall()
-    var that = this
+  onShareAppMessage() {
+    return {
+      title: '监听重力感应数据',
+      path: 'page/API/pages/on-accelerometer-change/on-accelerometer-change'
+    }
+  },
 
-    this.position =  {
+  data: {
+    x: 0,
+    y: 0,
+    z: 0,
+    enabled: true
+  },
+  onReady() {
+    this.drawBigBall()
+    const that = this
+
+    this.position = {
       x: 151,
       y: 151,
       vx: 0,
@@ -19,16 +32,15 @@ Page({
       })
       that.position.ax = Math.sin(res.x * Math.PI / 2)
       that.position.ay = -Math.sin(res.y * Math.PI / 2)
-      //that.drawSmallBall()
+      // that.drawSmallBall()
     })
 
     this.interval = setInterval(function () {
       that.drawSmallBall()
     }, 17)
-
   },
-  drawBigBall: function () {
-    var context = wx.createContext()
+  drawBigBall() {
+    const context = wx.createContext()
     context.beginPath(0)
     context.arc(151, 151, 140, 0, Math.PI * 2)
     context.setFillStyle('#ffffff')
@@ -40,15 +52,16 @@ Page({
       actions: context.getActions()
     })
   },
-  drawSmallBall: function () {
-    var p = this.position
-    var strokeStyle = 'rgba(1,1,1,0)'
+  drawSmallBall() {
+    const p = this.position
+    let strokeStyle = 'rgba(1,1,1,0)'
 
-    p.x = p.x + p.vx
-    p.y = p.y + p.vy
-    p.vx = p.vx + p.ax
-    p.vy = p.vy + p.ay
+    p.x += p.vx
+    p.y += p.vy
+    p.vx += p.ax
+    p.vy += p.ay
 
+    // eslint-disable-next-line
     if (Math.sqrt(Math.pow(Math.abs(p.x) - 151, 2) + Math.pow(Math.abs(p.y) - 151, 2)) >= 115) {
       if (p.x > 151 && p.vx > 0) {
         p.vx = 0
@@ -65,7 +78,7 @@ Page({
       strokeStyle = '#ff0000'
     }
 
-    var context = wx.createContext()
+    const context = wx.createContext()
     context.beginPath(0)
     context.arc(p.x, p.y, 15, 0, Math.PI * 2)
     context.setFillStyle('#1aad19')
@@ -77,12 +90,33 @@ Page({
       actions: context.getActions()
     })
   },
-  data: {
-    x: 0,
-    y: 0,
-    z: 0
+  startAccelerometer() {
+    if (this.data.enabled) {
+      return
+    }
+    const that = this
+    wx.startAccelerometer({
+      success() {
+        that.setData({
+          enabled: true
+        })
+      }
+    })
   },
-  onUnload: function () {
+  stopAccelerometer() {
+    if (!this.data.enabled) {
+      return
+    }
+    const that = this
+    wx.stopAccelerometer({
+      success() {
+        that.setData({
+          enabled: false
+        })
+      }
+    })
+  },
+  onUnload() {
     clearInterval(this.interval)
   }
 })

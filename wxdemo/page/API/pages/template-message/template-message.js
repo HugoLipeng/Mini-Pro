@@ -1,6 +1,6 @@
 const templateMessageUrl = require('../../../../config').templateMessageUrl
 
-var app = getApp()
+const app = getApp()
 
 const formData = {
   address: 'T.I.T 造舰厂',
@@ -10,34 +10,41 @@ const formData = {
 }
 
 Page({
-  onLoad: function() {
+  onShareAppMessage() {
+    return {
+      title: '模板消息',
+      path: 'page/API/pages/template-message/template-message'
+    }
+  },
+
+  onLoad() {
     this.setData({
       formData
     })
   },
 
-  submitForm: function(e) {
-    var self = this
-    var form_id = e.detail.formId
-    var formData = e.detail.value
+  submitForm(e) {
+    const self = this
+    const {formId} = e.detail
+    const formData = e.detail.value
 
-    console.log('form_id is:', form_id)
+    console.log('form_id is:', formId)
 
     self.setData({
       loading: true
     })
 
-    app.getUserOpenId(function(err, openid) {
+    app.getUserOpenId(function (err, openid) {
       if (!err) {
         wx.request({
           url: templateMessageUrl,
           method: 'POST',
           data: {
-            form_id,
+            formId,
             openid,
             formData
           },
-          success: function(res) {
+          success(res) {
             console.log('submit form success', res)
             wx.showToast({
               title: '发送成功',
@@ -47,7 +54,7 @@ Page({
               loading: false
             })
           },
-          fail: function({errMsg}) {
+          fail({errMsg}) {
             console.log('submit form fail, errMsg is:', errMsg)
           }
         })
@@ -57,5 +64,3 @@ Page({
     })
   }
 })
-
-

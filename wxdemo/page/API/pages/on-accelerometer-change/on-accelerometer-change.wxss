@@ -24,3 +24,10 @@
   font-size: 32rpx;
   width: 250rpx;
 }
+.page-body-controls {
+  margin-top: 30rpx;
+}
+.page-body-controls button {
+  margin-left: 20rpx;
+  float: left;
+}

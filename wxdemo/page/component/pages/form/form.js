@@ -1,9 +1,17 @@
 Page({
+  onShareAppMessage() {
+    return {
+      title: 'form',
+      path: 'page/component/pages/form/form'
+    }
+  },
+
   data: {
     pickerHidden: true,
     chosen: ''
   },
-  pickerConfirm: function (e) {
+
+  pickerConfirm(e) {
     this.setData({
       pickerHidden: true
     })
@@ -11,20 +19,24 @@ Page({
       chosen: e.detail.value
     })
   },
-  pickerCancel: function (e) {
+
+  pickerCancel() {
     this.setData({
       pickerHidden: true
     })
   },
-  pickerShow: function (e) {
+
+  pickerShow() {
     this.setData({
       pickerHidden: false
     })
   },
-  formSubmit: function (e) {
+
+  formSubmit(e) {
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
   },
-  formReset: function (e) {
+
+  formReset(e) {
     console.log('form发生了reset事件，携带数据为：', e.detail.value)
     this.setData({
       chosen: ''

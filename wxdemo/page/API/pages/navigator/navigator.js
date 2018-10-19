@@ -1,11 +1,28 @@
 Page({
-  navigateTo: function () {
-    wx.navigateTo({ url: './navigator' })
+  onShareAppMessage() {
+    return {
+      title: '页面跳转',
+      path: 'page/API/pages/navigator/navigator'
+    }
   },
-  navigateBack: function () {
+
+  navigateTo() {
+    wx.navigateTo({url: './navigator'})
+  },
+
+  navigateBack() {
     wx.navigateBack()
   },
-  redirectTo: function () {
-    wx.redirectTo({ url: './navigator' })
+
+  redirectTo() {
+    wx.redirectTo({url: './navigator'})
+  },
+
+  switchTab() {
+    wx.switchTab({url: '/page/component/index'})
+  },
+
+  reLaunch() {
+    wx.reLaunch({url: '/page/component/index'})
   }
 })

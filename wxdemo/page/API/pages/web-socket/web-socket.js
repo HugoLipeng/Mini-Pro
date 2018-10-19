@@ -1,7 +1,3 @@
-const qcloud = require('../../../../vendor/qcloud-weapp-client-sdk/index')
-const loginUrl = require('../../../../config').loginUrl
-const tunnelUrl = require('../../../../config').tunnelUrl
-
 function showModal(title, content) {
   wx.showModal({
     title,
@@ -20,49 +16,57 @@ function showSuccess(title) {
 
 
 Page({
+  onShareAppMessage() {
+    return {
+      title: 'Web Socket',
+      path: 'page/API/pages/web-socket/web-socket'
+    }
+  },
+
   data: {
     socketStatus: 'closed'
   },
 
-  onLoad: function() {
-    var self = this
-
-    qcloud.setLoginUrl(loginUrl)
-
-    qcloud.login({
-      success: function(result) {
-        console.log('登录成功', result)
-        self.setData({
-          hasLogin: true
-        })
-      },
-
-      fail: function(error) {
-        console.log('登录失败', error)
-      }
+  onLoad() {
+    const self = this
+    self.setData({
+      hasLogin: true
     })
+    // qcloud.setLoginUrl(loginUrl)
+
+    // qcloud.login({
+    //   success: function(result) {
+    //     console.log('登录成功', result)
+    //     self.setData({
+    //       hasLogin: true
+    //     })
+    //   },
+
+    //   fail: function(error) {
+    //     console.log('登录失败', error)
+    //   }
+    // })
   },
 
-  onUnload: function() {
+  onUnload() {
     this.closeSocket()
   },
 
-  toggleSocket: function(e) {
+  toggleSocket(e) {
     const turnedOn = e.detail.value
 
-    if (turnedOn && this.data.socketStatus == 'closed') {
+    if (turnedOn && this.data.socketStatus === 'closed') {
       this.openSocket()
-
-    } else if (!turnedOn && this.data.socketStatus == 'connected') {
-      var showSuccess = true
+    } else if (!turnedOn && this.data.socketStatus === 'connected') {
+      const showSuccess = true
       this.closeSocket(showSuccess)
     }
   },
 
-  openSocket: function() {
-    var socket = this.socket = new qcloud.Tunnel(tunnelUrl)
+  openSocket() {
+    // var socket = this.socket = new qcloud.Tunnel(tunnelUrl)
 
-    socket.on('connect', () => {
+    wx.onSocketOpen(() => {
       console.log('WebSocket 已连接')
       showSuccess('Socket已连接')
       this.setData({
@@ -71,12 +75,12 @@ Page({
       })
     })
 
-    socket.on('close', () => {
+    wx.onSocketClose(() => {
       console.log('WebSocket 已断开')
-      this.setData({ socketStatus: 'closed' })
+      this.setData({socketStatus: 'closed'})
     })
 
-    socket.on('error', error => {
+    wx.onSocketError(error => {
       showModal('发生错误', JSON.stringify(error))
       console.error('socket error:', error)
       this.setData({
@@ -85,7 +89,7 @@ Page({
     })
 
     // 监听服务器推送消息
-    socket.on('message', message => {
+    wx.onSocketMessage(message => {
       showSuccess('收到信道消息')
       console.log('socket message:', message)
       this.setData({
@@ -94,24 +98,26 @@ Page({
     })
 
     // 打开信道
-    socket.open()
+    wx.connectSocket({
+      url: 'wss://echo.websocket.org',
+    })
   },
 
-  closeSocket: function(showSuccessToast) {
-    if (this.socket) {
-      this.socket.close()
-    }
-    if (showSuccessToast) showSuccess('Socket已断开')
-    this.setData({ socketStatus: 'closed' })
-  },
-
-  sendMessage: function() {
-    if (this.socket && this.socket.isActive()) {
-      this.socket.emit('message', {
-        'content': 'Hello, 小程序!'
+  closeSocket() {
+    if (this.data.socketStatus === 'connected') {
+      wx.closeSocket({
+        success: () => {
+          showSuccess('Socket已断开')
+          this.setData({socketStatus: 'closed'})
+        }
       })
-      this.setData({
-        loading: true
+    }
+  },
+
+  sendMessage() {
+    if (this.data.socketStatus === 'connected') {
+      wx.sendSocketMessage({
+        data: 'Hello, Miniprogram!'
       })
     }
   },

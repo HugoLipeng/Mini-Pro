@@ -1,34 +1,43 @@
-var example = require('./example.js')
+const example = require('./example.js')
 
 Page({
-  onLoad: function () {
+  onShareAppMessage() {
+    return {
+      title: '创建画布',
+      path: 'page/API/pages/canvas/canvas'
+    }
+  },
+
+  onLoad() {
     this.context = wx.createContext()
 
-    var methods = Object.keys(example)
+    const methods = Object.keys(example)
     this.setData({
-      methods: methods
+      methods
     })
 
-    var that = this
+    const that = this
     methods.forEach(function (method) {
       that[method] = function () {
         example[method](that.context)
-        var actions = that.context.getActions()
+        const actions = that.context.getActions()
 
         wx.drawCanvas({
           canvasId: 'canvas',
-          actions: actions
+          actions
         })
       }
     })
   },
-  toTempFilePath: function () {
+
+  toTempFilePath() {
     wx.canvasToTempFilePath({
       canvasId: 'canvas',
-      success: function (res) {
+      success(res) {
         console.log(res)
       },
-      fail: function (res) {
+
+      fail(res) {
         console.log(res)
       }
     })

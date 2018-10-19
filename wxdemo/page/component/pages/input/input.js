@@ -1,17 +1,26 @@
 Page({
+  onShareAppMessage() {
+    return {
+      title: 'input',
+      path: 'page/component/pages/input/input'
+    }
+  },
+
   data: {
     focus: false,
     inputValue: ''
   },
-  bindKeyInput: function (e) {
+
+  bindKeyInput(e) {
     this.setData({
       inputValue: e.detail.value
     })
   },
-  bindReplaceInput: function (e) {
-    var value = e.detail.value
-    var pos = e.detail.cursor
-    var left
+
+  bindReplaceInput(e) {
+    const value = e.detail.value
+    let pos = e.detail.cursor
+    let left
     if (pos !== -1) {
       // 光标在中间
       left = e.detail.value.slice(0, pos)
@@ -28,7 +37,8 @@ Page({
     // 或者直接返回字符串,光标在最后边
     // return value.replace(/11/g,'2'),
   },
-  bindHideKeyboard: function (e) {
+
+  bindHideKeyboard(e) {
     if (e.detail.value === '123') {
       // 收起键盘
       wx.hideKeyboard()

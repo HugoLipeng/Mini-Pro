@@ -9,6 +9,14 @@
       <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
+            <view class="weui-label">手机品牌</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" type="text" disabled="{{true}}" placeholder="未获取" value="{{systemInfo.brand}}"></input>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
             <view class="weui-label">手机型号</view>
           </view>
           <view class="weui-cell__bd">
@@ -49,7 +57,7 @@
         </view>
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
-            <view class="weui-label">DPI</view>
+            <view class="weui-label">DPR</view>
           </view>
           <view class="weui-cell__bd">
             <input class="weui-input" type="text" disabled="{{true}}" placeholder="未获取" value="{{systemInfo.pixelRatio}}"></input>

@@ -15,6 +15,10 @@
           <text class="direction-degree">o</text>
         </view>
       </view>
+      <view class="controls">
+        <button bindtap="startCompass" disabled="{{enabled}}">开始监听</button>
+        <button bindtap="stopCompass" disabled="{{!enabled}}">停止监听</button>
+      </view>
     </view>
   </view>
 

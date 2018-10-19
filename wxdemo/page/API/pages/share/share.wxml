@@ -32,7 +32,7 @@
         </view>
       </view>
     </view>
-    <view class="weui-cells__tips">点击右上角菜单分享给好友</view>
+    <view class="weui-cells__tips">点击右上角菜单转发给好友</view>
   </view>
 
   <template is="foot"/>

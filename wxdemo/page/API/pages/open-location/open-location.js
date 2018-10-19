@@ -1,7 +1,14 @@
 Page({
-  openLocation: function (e) {
+  onShareAppMessage() {
+    return {
+      title: '查看位置',
+      path: 'page/API/pages/open-location/open-location'
+    }
+  },
+
+  openLocation(e) {
     console.log(e)
-    var value = e.detail.value
+    const value = e.detail.value
     console.log(value)
     wx.openLocation({
       longitude: Number(value.longitude),

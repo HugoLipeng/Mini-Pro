@@ -1,8 +1,16 @@
-var util = require('../../../../util/util.js')
-var playTimeInterval
-var recordTimeInterval
+const util = require('../../../../util/util.js')
+
+let playTimeInterval
+let recordTimeInterval
 
 Page({
+  onShareAppMessage() {
+    return {
+      title: '录音',
+      path: 'page/API/pages/voice/voice'
+    }
+  },
+
   data: {
     recording: false,
     playing: false,
@@ -12,45 +20,50 @@ Page({
     formatedRecordTime: '00:00:00',
     formatedPlayTime: '00:00:00'
   },
-  onHide: function() {
+
+  onHide() {
     if (this.data.playing) {
       this.stopVoice()
     } else if (this.data.recording) {
       this.stopRecordUnexpectedly()
     }
   },
-  startRecord: function () {
-    this.setData({ recording: true })
 
-    var that = this
+  startRecord() {
+    this.setData({recording: true})
+
+    const that = this
     recordTimeInterval = setInterval(function () {
-      var recordTime = that.data.recordTime += 1
+      const recordTime = that.data.recordTime += 1
       that.setData({
         formatedRecordTime: util.formatTime(that.data.recordTime),
-        recordTime: recordTime
+        recordTime
       })
     }, 1000)
+
     wx.startRecord({
-      success: function (res) {
+      success(res) {
         that.setData({
           hasRecord: true,
           tempFilePath: res.tempFilePath,
           formatedPlayTime: util.formatTime(that.data.playTime)
         })
       },
-      complete: function () {
-        that.setData({ recording: false })
+      complete() {
+        that.setData({recording: false})
         clearInterval(recordTimeInterval)
       }
     })
   },
-  stopRecord: function() {
+
+  stopRecord() {
     wx.stopRecord()
   },
-  stopRecordUnexpectedly: function () {
-    var that = this
+
+  stopRecordUnexpectedly() {
+    const that = this
     wx.stopRecord({
-      success: function() {
+      success() {
         console.log('stop record success')
         clearInterval(recordTimeInterval)
         that.setData({
@@ -62,39 +75,42 @@ Page({
       }
     })
   },
-  playVoice: function () {
-    var that = this
+
+  playVoice() {
+    const that = this
     playTimeInterval = setInterval(function () {
-      var playTime = that.data.playTime + 1
+      const playTime = that.data.playTime + 1
       console.log('update playTime', playTime)
       that.setData({
         playing: true,
         formatedPlayTime: util.formatTime(playTime),
-        playTime: playTime
+        playTime
       })
     }, 1000)
     wx.playVoice({
       filePath: this.data.tempFilePath,
-      success: function () {
+      success() {
         clearInterval(playTimeInterval)
-        var playTime = 0
+        const playTime = 0
         console.log('play voice finished')
         that.setData({
           playing: false,
           formatedPlayTime: util.formatTime(playTime),
-          playTime: playTime
+          playTime
         })
       }
     })
   },
-  pauseVoice: function () {
+
+  pauseVoice() {
     clearInterval(playTimeInterval)
     wx.pauseVoice()
     this.setData({
       playing: false
     })
   },
-  stopVoice: function () {
+
+  stopVoice() {
     clearInterval(playTimeInterval)
     this.setData({
       playing: false,
@@ -103,7 +119,8 @@ Page({
     })
     wx.stopVoice()
   },
-  clear: function () {
+
+  clear() {
     clearInterval(playTimeInterval)
     wx.stopVoice()
     this.setData({

@@ -3,11 +3,11 @@ function formatTime(time) {
     return time
   }
 
-  var hour = parseInt(time / 3600)
-  time = time % 3600
-  var minute = parseInt(time / 60)
-  time = time % 60
-  var second = time
+  const hour = parseInt(time / 3600, 10)
+  time %= 3600
+  const minute = parseInt(time / 60, 10)
+  time = parseInt(time % 60, 10)
+  const second = time
 
   return ([hour, minute, second]).map(function (n) {
     n = n.toString()
@@ -30,7 +30,14 @@ function formatLocation(longitude, latitude) {
   }
 }
 
+function fib(n) {
+  if (n < 1) return 0
+  if (n <= 2) return 1
+  return fib(n - 1) + fib(n - 2)
+}
+
 module.exports = {
-  formatTime: formatTime,
-  formatLocation: formatLocation
+  formatTime,
+  formatLocation,
+  fib
 }

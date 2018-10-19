@@ -1,10 +1,28 @@
-var app = getApp()
+const app = getApp()
 Page({
+  onShareAppMessage() {
+    return {
+      title: '获取用户信息',
+      path: 'page/API/pages/get-user-info/get-user-info'
+    }
+  },
+
   data: {
     hasUserInfo: false
   },
-  getUserInfo: function () {
-    var that = this
+  getUserInfo() {
+    const that = this
+
+    function _getUserInfo() {
+      wx.getUserInfo({
+        success(res) {
+          that.setData({
+            hasUserInfo: true,
+            userInfo: res.userInfo
+          })
+        }
+      })
+    }
 
     if (app.globalData.hasLogin === false) {
       wx.login({
@@ -13,20 +31,8 @@ Page({
     } else {
       _getUserInfo()
     }
-
-    function _getUserInfo() {
-      wx.getUserInfo({
-        success: function (res) {
-          that.setData({
-            hasUserInfo: true,
-            userInfo: res.userInfo
-          })
-          that.update()
-        }
-      })
-    }
   },
-  clear: function () {
+  clear() {
     this.setData({
       hasUserInfo: false,
       userInfo: {}

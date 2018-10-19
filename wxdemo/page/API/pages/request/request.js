@@ -1,9 +1,17 @@
 const requestUrl = require('../../../../config').requestUrl
+
 const duration = 2000
 
 Page({
-  makeRequest: function() {
-    var self = this
+  onShareAppMessage() {
+    return {
+      title: '网络请求',
+      path: 'page/API/pages/request/request'
+    }
+  },
+
+  makeRequest() {
+    const self = this
 
     self.setData({
       loading: true
@@ -14,12 +22,12 @@ Page({
       data: {
         noncestr: Date.now()
       },
-      success: function(result) {
+      success(result) {
         wx.showToast({
           title: '请求成功',
           icon: 'success',
           mask: true,
-          duration: duration
+          duration,
         })
         self.setData({
           loading: false
@@ -27,7 +35,7 @@ Page({
         console.log('request success', result)
       },
 
-      fail: function({errMsg}) {
+      fail({errMsg}) {
         console.log('request fail', errMsg)
         self.setData({
           loading: false

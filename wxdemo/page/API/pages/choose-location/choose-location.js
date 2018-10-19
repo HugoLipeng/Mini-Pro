@@ -1,14 +1,22 @@
-var util = require('../../../../util/util.js')
-var formatLocation = util.formatLocation
+const util = require('../../../../util/util.js')
+
+const formatLocation = util.formatLocation
 
 Page({
+  onShareAppMessage() {
+    return {
+      title: '使用原生地图选择位置',
+      path: 'page/API/pages/choose-location/choose-location'
+    }
+  },
+
   data: {
     hasLocation: false,
   },
-  chooseLocation: function () {
-    var that = this
+  chooseLocation() {
+    const that = this
     wx.chooseLocation({
-      success: function (res) {
+      success(res) {
         console.log(res)
         that.setData({
           hasLocation: true,
@@ -18,7 +26,7 @@ Page({
       }
     })
   },
-  clear: function () {
+  clear() {
     this.setData({
       hasLocation: false
     })

@@ -1,8 +1,15 @@
 Page({
+  onShareAppMessage() {
+    return {
+      title: '打电话',
+      path: 'page/API/pages/make-phone-call/make-phone-call'
+    }
+  },
+
   data: {
     disabled: true
   },
-  bindInput: function(e) {
+  bindInput(e) {
     this.inputValue = e.detail.value
 
     if (this.inputValue.length > 0) {
@@ -15,12 +22,11 @@ Page({
       })
     }
   },
-  makePhoneCall: function () {
-    var that = this
+  makePhoneCall() {
     wx.makePhoneCall({
       phoneNumber: this.inputValue,
-      success: function () {
-        console.log("成功拨打电话")
+      success() {
+        console.log('成功拨打电话')
       }
     })
   }

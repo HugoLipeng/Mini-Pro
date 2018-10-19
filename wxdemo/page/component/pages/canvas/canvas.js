@@ -1,5 +1,12 @@
 Page({
-  onReady: function () {
+  onShareAppMessage() {
+    return {
+      title: 'canvas',
+      path: 'page/component/pages/canvas/canvas'
+    }
+  },
+
+  onReady() {
     this.position = {
       x: 150,
       y: 150,
@@ -10,8 +17,9 @@ Page({
     this.drawBall()
     this.interval = setInterval(this.drawBall, 17)
   },
-  drawBall: function () {
-    var p = this.position
+
+  drawBall() {
+    const p = this.position
     p.x += p.vx
     p.y += p.vy
     if (p.x >= 300) {
@@ -27,7 +35,7 @@ Page({
       p.vy = 2
     }
 
-    var context = wx.createContext()
+    const context = wx.createContext()
 
     function ball(x, y) {
       context.beginPath(0)
@@ -52,7 +60,8 @@ Page({
       actions: context.getActions()
     })
   },
-  onUnload: function () {
+
+  onUnload() {
     clearInterval(this.interval)
   }
 })

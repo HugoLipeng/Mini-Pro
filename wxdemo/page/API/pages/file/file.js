@@ -1,5 +1,12 @@
 Page({
-  onLoad: function () {
+  onShareAppMessage() {
+    return {
+      title: '文件',
+      path: 'page/API/pages/file/file'
+    }
+  },
+
+  onLoad() {
     this.setData({
       savedFilePath: wx.getStorageSync('savedFilePath')
     })
@@ -11,23 +18,23 @@ Page({
       hidden: true
     }
   },
-  chooseImage: function () {
-    var that = this
+  chooseImage() {
+    const that = this
     wx.chooseImage({
       count: 1,
-      success: function (res) {
+      success(res) {
         that.setData({
           tempFilePath: res.tempFilePaths[0]
         })
       }
     })
   },
-  saveFile: function () {
+  saveFile() {
     if (this.data.tempFilePath.length > 0) {
-      var that = this
+      const that = this
       wx.saveFile({
         tempFilePath: this.data.tempFilePath,
-        success: function (res) {
+        success(res) {
           that.setData({
             savedFilePath: res.savedFilePath
           })
@@ -40,7 +47,7 @@ Page({
             }
           })
         },
-        fail: function (res) {
+        fail() {
           that.setData({
             dialog: {
               title: '保存失败',
@@ -52,14 +59,14 @@ Page({
       })
     }
   },
-  clear: function () {
+  clear() {
     wx.setStorageSync('savedFilePath', '')
     this.setData({
       tempFilePath: '',
       savedFilePath: ''
     })
   },
-  confirm: function () {
+  confirm() {
     this.setData({
       'dialog.hidden': true
     })

@@ -8,7 +8,7 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">购买地点</view>
+          <view class="weui-label">示例地点</view>
         </view>
         <view class="weui-cell__bd">
           <input class="weui-input" type="text" disabled="{{true}}" value="{{formData.address}}" name="address"></input>
@@ -16,7 +16,7 @@
       </view>
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">购买时间</view>
+          <view class="weui-label">示例时间</view>
         </view>
         <view class="weui-cell__bd">
           <input class="weui-input" type="text" disabled="{{true}}" value="{{formData.time}}" name="time"></input>
@@ -24,7 +24,7 @@
       </view>
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">物品名称</view>
+          <view class="weui-label">示例物品</view>
         </view>
         <view class="weui-cell__bd">
           <input class="weui-input" type="text" disabled="{{true}}" value="{{formData.name}}" name="name"></input>
@@ -32,7 +32,7 @@
       </view>
       <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-          <view class="weui-label">交易单号</view>
+          <view class="weui-label">示例单号</view>
         </view>
         <view class="weui-cell__bd">
           <input class="weui-input" type="text" disabled="{{true}}" value="{{formData.serial}}" name="serial"></input>
