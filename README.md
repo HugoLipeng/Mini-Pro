@@ -1,9 +1,12 @@
 # Mini-Pro
 微信小程序学习
 
+[小程序社区-文章类](http://www.wxapp-union.com/portal.php)  
 
-[如何入门微信小程序开发，有哪些学习资料？ - 初雪的回答 - 知乎]
-(https://www.zhihu.com/question/50907897/answer/128494332)
+[小程序窝-小问题类](http://www.xcxwo.com/thread/index)  
+
+
+[如何入门微信小程序开发，有哪些学习资料？ - 初雪的回答 - 知乎](https://www.zhihu.com/question/50907897/answer/128494332)
 
 [Qdaily 小程序 开发过程](https://www.zhihu.com/question/50907897/answer/140010208)  
 
