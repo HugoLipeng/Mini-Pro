@@ -1,0 +1,8 @@
+<!--pages/posts/posts.wxml-->
+<view>
+  <swiper>
+    <swiper-item>Content</swiper-item>
+    <swiper-item>Content</swiper-item>
+    <swiper-item>Content</swiper-item>
+  </swiper>
+</view>
