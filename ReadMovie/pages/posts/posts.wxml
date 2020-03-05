@@ -1,8 +1,8 @@
 <!--pages/posts/posts.wxml-->
 <view>
-  <swiper>
-    <swiper-item>Content</swiper-item>
-    <swiper-item>Content</swiper-item>
-    <swiper-item>Content</swiper-item>
+  <swiper vertical="{{false}}" indicator-dots="true" autoplay="true" interval="5000">
+    <swiper-item><image src="/images/wx.png"></image></swiper-item>
+    <swiper-item><image src="/images/vr.png"></image></swiper-item>
+    <swiper-item><image src="/images/iqiyi.png"></image></swiper-item>
   </swiper>
 </view>
