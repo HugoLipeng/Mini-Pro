@@ -6,5 +6,6 @@
   ],
   "window": {
     "navigationBarBackgroundColor": "#b3d4db"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

@@ -80,8 +80,8 @@ Page({
     },
 
     onColletionTap: function (event) {
-        // this.getPostsCollectedSyc();
-        this.getPostsCollectedAsy();
+        // this.getPostsCollectedSyc(); // 同步
+        this.getPostsCollectedAsy(); // 异步
     },
 
     getPostsCollectedAsy: function () {
