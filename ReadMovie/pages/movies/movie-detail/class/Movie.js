@@ -1,4 +1,5 @@
 var util = require('../../../../utils/util.js')
+// es6
 class Movie {
     constructor(url) {
         this.url = url;
